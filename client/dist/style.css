@@ -1,0 +1,11 @@
+/* ul.main-list {
+    list-style-type: none;
+} */
+
+#search-result-view {
+    border-style: solid;
+}
+
+li {
+    font-size: 20px;
+}

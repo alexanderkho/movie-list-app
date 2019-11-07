@@ -1,28 +1,45 @@
 import React from 'react';
-import List from './list.jsx';
-import SearchBar from './searchBar.jsx';
+import List from './List.jsx';
+import SearchBar from './SearchBar.jsx';
 import SearchResultView from './SearchResultView.jsx';
+import AddMovie from './AddMovie.jsx';
 
-let moviesList = [
-    { title: 'Mean Girls' },
-    { title: 'Hackers' },
-    { title: 'The Grey' },
-    { title: 'Sunshine' },
-    { title: 'Ex Machina' },
-];
+var exampleData = [
+    {title: 'Mean Girls'},
+    {title: 'Hackers'},
+    {title: 'The Grey'},
+    {title: 'Sunshine'},
+    {title: 'Ex Machina'},
+  ];
 
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            movies: moviesList,
+            watched: [],
+            toWatch: [],
+            currentView: null,
+            movies: [],
             searchResults: [],
             searchHidden: true,
             searchTerm: ''
         }
+        //binding all methods
         this.searchHandler = this.searchHandler.bind(this);
         this.searchMovies = this.searchMovies.bind(this);
         this.hideSearchHandler = this.hideSearchHandler.bind(this);
+        this.addMovieHandler = this.addMovieHandler.bind(this);
+        this.getState = this.getState.bind(this);
+        this.setCurrentView = this.setCurrentView.bind(this);
+        // this.setCurrentView('toWatch');
+    }
+
+    getState (attr) {
+        return this.state.attr;
+    }
+
+    setCurrentView (v) {
+        this.setState({currentView: this.getState(v)});
     }
 
     searchHandler (e) {
@@ -36,7 +53,6 @@ class App extends React.Component {
                 currentResult.push(movie);
             }
         });
-        console.log(currentResult)
         this.setState({
             searchResults: currentResult,
             searchHidden: false,
@@ -46,7 +62,19 @@ class App extends React.Component {
 
     hideSearchHandler () {
         this.setState({searchHidden: true});
-        console.log('click');
+    }
+
+    addMovieHandler () {
+        let newMovie = [{title: document.getElementsByClassName('add-movie')[0].value}];
+        this.setState({movies: this.state.movies.concat(newMovie)});
+    }
+
+    watchViewToggle () {
+        console.log('cluck');
+    }
+
+    watchListAdd () {
+        console.log('added');
     }
 
     render() {
@@ -54,9 +82,16 @@ class App extends React.Component {
             <h1 id="title">MoooovieCow.com</h1>
             <SearchBar searchHandler={this.searchHandler}/>
             <SearchResultView searchHidden={this.state.searchHidden} hideSearchHandler={this.hideSearchHandler} searchResults={this.state.searchResults} searchTerm={this.state.searchTerm}/>
-            <List movies={this.state.movies} />
+            <br/>
+            <AddMovie addMovieHandler={this.addMovieHandler}/>
+            <br/>
+            <button id="watched" className="watch-view-toggle" onClick = {this.watchViewToggle}>Watched</button>
+            <button id="to-watch" className="watch-view-toggle" onClick = {this.watchViewToggle}>To Watch</button>
+            <h3>Available Titles:</h3>
+            <List movies={this.state.movies} watchListAdd={this.watchListAdd}/>
         </div>)
     }
+
 };
 
 export default App;

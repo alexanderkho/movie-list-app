@@ -1,8 +1,8 @@
 import React from 'react';
-import ListItem from './listItem.jsx'
+import ListItem from './ListItem.jsx'
 
 var List = function (props) {
-    return (<ul>{props.movies.map((movie, i) => <ListItem movie={movie} key={i} />)}</ul>)
+    return (<ul className="main-list">{props.movies.map((movie, i) => <ListItem movie={movie} key={i} watchListAdd={props.watchListAdd}/>)}</ul>)
 }
 
 export default List;
