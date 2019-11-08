@@ -1,6 +1,20 @@
-/* ul.main-list {
-    list-style-type: none;
-} */
+
+
+/* Start App Styling */
+
+h1 {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 5rem;
+    font-weight: bold;
+    background-color: #6F90FF
+}
+
+.search-bar {
+    background-color: #eee7ea;
+    padding: 20px 2px;
+    font-size: 2rem;
+    font-family: 'Courier New', Courier, monospace
+}
 
 #search-result-view {
     border-style: solid;

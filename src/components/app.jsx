@@ -11,7 +11,6 @@ class App extends React.Component {
             watchedMovies: [],
             toWatchMovies: [],
             currentView: 'toWatch',
-            movies: [],
             searchResults: [],
             searchHidden: true,
             searchTerm: ''
@@ -24,9 +23,11 @@ class App extends React.Component {
         this.watchViewToggle = this.watchViewToggle.bind(this);
         this.watchListAdd = this.watchListAdd.bind(this);
         this.watchListRemove = this.watchListRemove.bind(this);
+        // this.dropDownHandler = this.dropDownHandler.bind(this);
     }
 
     searchHandler (e) {
+        e.preventDefault();
         this.searchMovies(document.getElementsByClassName('search-input')[0].value);
     }
 
@@ -55,9 +56,16 @@ class App extends React.Component {
         this.setState({searchHidden: true});
     }
 
-    addMovieHandler () {
-        let newMovie = [{title: document.getElementsByClassName('add-movie')[0].value}];
-        this.setState({toWatchMovies: this.state.movies.concat(newMovie)});
+    addMovieHandler (e) {
+        e.preventDefault();
+        let newMovie = [{
+            title: document.getElementsByClassName('add-movie')[0].value,
+            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Porta non pulvinar neque laoreet suspendisse. Pharetra convallis posuere morbi leo urna.',
+            rating: Math.floor(Math.random() * 5),
+            director: ['Steve sr.', 'Steve jr.', 'Duck'][Math.floor(Math.random() * 3)],
+            displayInfo: false
+        }];
+        this.setState({toWatchMovies: this.state.toWatchMovies.concat(newMovie)});
     }
 
     watchViewToggle (e) {
@@ -89,6 +97,10 @@ class App extends React.Component {
         });
     }
 
+    dropDownHandler(m) {
+        console.log('beep');
+    }
+    
     render() {
         return (<div>
             <h1 id="title">MoooovieCow.com</h1>
@@ -100,10 +112,10 @@ class App extends React.Component {
             <button id="watched" className="watch-view-toggle" onClick = {this.watchViewToggle}>Watched</button>
             <button id="toWatch" className="watch-view-toggle" onClick = {this.watchViewToggle}>To Watch</button>
             <h3>Available Titles:</h3>
-            {/* <List movies={this.state.movies} watchListAdd={this.watchListAdd}/> */}
-            <ListView currentView={this.state.currentView} watchedMovies={this.state.watchedMovies} toWatchMovies={this.state.toWatchMovies} watchListAdd={this.watchListAdd} watchListRemove={this.watchListRemove}/>
+            <ListView currentView={this.state.currentView} watchedMovies={this.state.watchedMovies} toWatchMovies={this.state.toWatchMovies} watchListAdd={this.watchListAdd} watchListRemove={this.watchListRemove} dropDownHandler={this.dropDownHandler}/>
         </div>)
     }
+
 
 };
 

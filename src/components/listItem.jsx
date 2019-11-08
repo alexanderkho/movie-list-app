@@ -5,7 +5,7 @@ import React from 'react';
 // }
 
 var ListItem = function (props) {
-    return (<li className="main-list">{props.movie.title}
+    return (<li className="main-list" onClick={()=>{props.dropDownHandler(props.movie)}}>{props.movie.title}
         {props.currentView === 'toWatch' ? (
             <button onClick={() => { props.watchListAdd(props.movie) }}>Add to Watched List</button>
         ) : (
